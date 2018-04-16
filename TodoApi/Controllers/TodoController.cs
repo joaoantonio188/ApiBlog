@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TodoApi.Models;
+using BusinessLayer.Interface;
 
 namespace TodoApi.Controllers
 {
@@ -11,86 +13,87 @@ namespace TodoApi.Controllers
     [Route("api/[controller]")]
     public class TodoController : Controller
     {
-        private readonly TodoContext _context;
+        private readonly IBlogBll _blogBll;
 
-        public TodoController(TodoContext context)
+        public TodoController(IBlogBll blogBll)
         {
-            _context = context;
+            _blogBll = blogBll;
 
-            if (_context.TodoItems.Count() == 0)
-            {
-                _context.TodoItems.Add(new TodoItem { Name = "Item1" });
-                _context.SaveChanges();
-            }
         }
 
         [HttpGet]
-        public IEnumerable<TodoItem> GetAll()
+        public IActionResult GetAll()
         {
-            return _context.TodoItems.ToList();
+            try
+            {
+                return Json(_blogBll.ObterTodos());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
-        [HttpGet("{id}", Name = "GetTodo")]
-        public IActionResult GetById(long id)
-        {
-        
 
-            var item = _context.TodoItems.FirstOrDefault(t => t.IdItem == id);
-            if (item == null)
+        [HttpGet("{idItem}")]
+        public IActionResult Get(int idItem)
+        {
+
+            try
             {
-                return NotFound();
+                return Json(_blogBll.Obter(idItem));
             }
-            
-            return new ObjectResult(item);
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] TodoItem item)
+        public IActionResult Post([FromBody] TodoItem item)
         {
-            if (item == null)
+            try
             {
+                if (ModelState.IsValid)
+                {
+                    _blogBll.Inserir(item);
+                    return StatusCode(201);
+                }
                 return BadRequest();
             }
+            catch (Exception ex)
+            {
 
-            _context.TodoItems.Add(item);
-            _context.SaveChanges();
-
-            return CreatedAtRoute("GetTodo", new { id = item.IdItem }, item);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
 
-        [HttpPut("{id}")]
-        public IActionResult Update(long id, [FromBody] TodoItem item)
+        [HttpPut("{idItem}")]
+        public IActionResult Put(int idItem, [FromBody]TodoItem item)
         {
-            if (item == null || item.IdItem != id)
+            try
             {
-                return BadRequest();
+                _blogBll.Atualizar(idItem, item);
+                return NoContent();
             }
-
-            var todo = _context.TodoItems.FirstOrDefault(t => t.IdItem == id);
-            if (todo == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
-
-            todo.IsComplete = item.IsComplete;
-            todo.Name = item.Name;
-
-            _context.TodoItems.Update(todo);
-            _context.SaveChanges();
-            return new NoContentResult();
         }
-        [HttpDelete("{id}")]
-        public IActionResult Delete(long id)
-        {
-            var todo = _context.TodoItems.FirstOrDefault(t => t.IdItem == id);
-            if (todo == null)
-            {
-                return NotFound();
-            }
 
-            _context.TodoItems.Remove(todo);
-            _context.SaveChanges();
-            return new NoContentResult();
+        [HttpDelete("{idItem}")]
+        public IActionResult Delete(int idItem)
+        {
+            try
+            {
+                _blogBll.Deletar(idItem);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }
