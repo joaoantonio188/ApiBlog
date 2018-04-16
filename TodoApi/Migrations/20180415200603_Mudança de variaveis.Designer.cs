@@ -11,9 +11,10 @@ using TodoApi.Models;
 namespace TodoApi.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    partial class TodoContextModelSnapshot : ModelSnapshot
+    [Migration("20180415200603_Mudança de variaveis")]
+    partial class Mudançadevariaveis
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +23,7 @@ namespace TodoApi.Migrations
 
             modelBuilder.Entity("TodoApi.Models.TodoItem", b =>
                 {
-                    b.Property<long>("Iditem")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ComentarioNota");
@@ -47,7 +48,7 @@ namespace TodoApi.Migrations
 
                     b.Property<string>("User");
 
-                    b.HasKey("Iditem");
+                    b.HasKey("Id");
 
                     b.ToTable("TodoItems");
                 });

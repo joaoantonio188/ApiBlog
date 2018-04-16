@@ -35,7 +35,7 @@ namespace TodoApi.Controllers
         {
         
 
-            var item = _context.TodoItems.FirstOrDefault(t => t.Id == id);
+            var item = _context.TodoItems.FirstOrDefault(t => t.IdItem == id);
             if (item == null)
             {
                 return NotFound();
@@ -55,18 +55,18 @@ namespace TodoApi.Controllers
             _context.TodoItems.Add(item);
             _context.SaveChanges();
 
-            return CreatedAtRoute("GetTodo", new { id = item.Id }, item);
+            return CreatedAtRoute("GetTodo", new { id = item.IdItem }, item);
         }
 
         [HttpPut("{id}")]
         public IActionResult Update(long id, [FromBody] TodoItem item)
         {
-            if (item == null || item.Id != id)
+            if (item == null || item.IdItem != id)
             {
                 return BadRequest();
             }
 
-            var todo = _context.TodoItems.FirstOrDefault(t => t.Id == id);
+            var todo = _context.TodoItems.FirstOrDefault(t => t.IdItem == id);
             if (todo == null)
             {
                 return NotFound();
@@ -82,7 +82,7 @@ namespace TodoApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(long id)
         {
-            var todo = _context.TodoItems.FirstOrDefault(t => t.Id == id);
+            var todo = _context.TodoItems.FirstOrDefault(t => t.IdItem == id);
             if (todo == null)
             {
                 return NotFound();

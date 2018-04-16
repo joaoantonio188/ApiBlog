@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -11,6 +12,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
 using Microsoft.AspNetCore.Mvc.Formatters;
+using TodoApi.DataAccessObject;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace TodoApi
 {
@@ -30,7 +33,9 @@ namespace TodoApi
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=TodoAPI;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<TodoContext>(options => options.UseSqlServer(connection));
-            
+
+            services.AddTransient<IBlogDao, BlogDao>();
+
         }
 
 
@@ -40,7 +45,6 @@ namespace TodoApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
 
             app.UseMvc();
         }
