@@ -23,18 +23,18 @@ namespace TodoApi.Implementação
         /// </summary>
         /// <param name="idItem">Identificador do computador</param>
         /// <param name="item">Objeto computador</param>
-        public void Atualizar(int idItem, TodoItem item)
+        public void Atualizar(long idItem, Blog blog)
         {
-            var computadorAtual = _blogDAO.Obter(idItem);
-            computadorAtual.AutoAtualizar(item);
-            _blogDAO.Atualizar(computadorAtual);
+            var idItemAtual = _blogDAO.Obter(idItem);
+            idItemAtual.AutoAtualizar(blog);
+            _blogDAO.Atualizar(idItemAtual);
         }
 
         /// <summary>
         /// Excluir um computador
         /// </summary>
         /// <param name="idItem">Identificador do computador</param>
-        public void Deletar(int idItem)
+        public void Deletar(long idItem)
         {
             _blogDAO.Deletar(idItem);
         }
@@ -43,9 +43,9 @@ namespace TodoApi.Implementação
         /// Inserir um novo computador
         /// </summary>
         /// <param name="item">Obejto no computador</param>
-        public void Inserir(TodoItem item)
+        public void Inserir(Blog blog)
         {
-            _blogDAO.Inserir(item);
+            _blogDAO.Inserir(blog);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace TodoApi.Implementação
         /// </summary>
         /// <param name="idItem">Identificador do computador</param>
         /// <returns>Retorna computador encontrado</returns>
-        public TodoItem Obter(int idItem)
+        public Blog Obter(long idItem)
         {
             return _blogDAO.Obter(idItem);
         }
@@ -62,7 +62,7 @@ namespace TodoApi.Implementação
         /// Obtem todos os computadores
         /// </summary>
         /// <returns>Retorna uma lista de computadores</returns>
-        public List<TodoItem> ObterTodos()
+        public List<Blog> ObterTodos()
         {
             return _blogDAO.ObterTodos();
         }

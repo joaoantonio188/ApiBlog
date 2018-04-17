@@ -9,10 +9,10 @@ namespace BusinessLayer.Interface
 
     public interface IBlogBll
     {
-        void Inserir(TodoItem item);
-        void Deletar(int idItem);
-        void Atualizar(int idItem, TodoItem item);
-        TodoItem Obter(int idItem);
-        List<TodoItem> ObterTodos();
+        void Inserir(Blog blog);
+        void Deletar(long idItem);
+        void Atualizar(long idItem, Blog blog);
+        Blog Obter(long idItem);
+        List<Blog> ObterTodos();
     }
 }

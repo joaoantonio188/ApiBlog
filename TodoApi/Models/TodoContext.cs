@@ -10,13 +10,13 @@ namespace TodoApi.Models
 {
     public class TodoContext : DbContext
     {
-        public DbSet<TodoItem> TodoItems { get; set; }
+        public DbSet<Blog> TodoItems { get; set; }
 
         public TodoContext(DbContextOptions<TodoContext> options) : base(options){ }
 
     }
 
-    public class TodoItem
+    public class Blog
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -34,19 +34,19 @@ namespace TodoApi.Models
         public string DonoBlog { get; set; }
 
 
-        public void AutoAtualizar(TodoItem item)
+        public void AutoAtualizar(Blog blog)
         {
-            this.Name = item.Name;
-            this.IsComplete = item.IsComplete;
-            this.TituloBlog = item.TituloBlog;
-            this.DataCriação = item.DataCriação;
-            this.Nota = item.Nota;
-            this.ComentarioNota = item.ComentarioNota;
-            this.Texto = item.Texto;
-            this.DataTexto = item.DataTexto;
-            this.User = item.User;
-            this.Email = item.Email;
-            this.DonoBlog = item.DonoBlog;
+            this.Name = blog.Name;
+            this.IsComplete = blog.IsComplete;
+            this.TituloBlog = blog.TituloBlog;
+            this.DataCriação = blog.DataCriação;
+            this.Nota = blog.Nota;
+            this.ComentarioNota = blog.ComentarioNota;
+            this.Texto = blog.Texto;
+            this.DataTexto = blog.DataTexto;
+            this.User = blog.User;
+            this.Email = blog.Email;
+            this.DonoBlog = blog.DonoBlog;
          
         }
     }

@@ -8,10 +8,10 @@ namespace TodoApi.DataAccessObject
 {
     public interface IBlogDao
     {
-        void Inserir(TodoItem item);
-        void Deletar(int idItem);
-        void Atualizar(TodoItem item);
-        TodoItem Obter(int idItem);
-        List<TodoItem> ObterTodos();
+        void Inserir(Blog blog);
+        void Deletar(long idItem);
+        void Atualizar(Blog blog);
+        Blog Obter(long idItem);
+        List<Blog> ObterTodos();
     }
 }

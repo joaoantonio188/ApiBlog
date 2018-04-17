@@ -14,6 +14,8 @@ using TodoApi.Models;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using TodoApi.DataAccessObject;
 using Swashbuckle.AspNetCore.Swagger;
+using TodoApi.Implementação;
+using BusinessLayer.Interface;
 
 namespace TodoApi
 {
@@ -35,7 +37,8 @@ namespace TodoApi
             services.AddDbContext<TodoContext>(options => options.UseSqlServer(connection));
 
             services.AddTransient<IBlogDao, BlogDao>();
-
+            services.AddTransient<IBlogBll, BlogBll>();
+            
         }
 
 

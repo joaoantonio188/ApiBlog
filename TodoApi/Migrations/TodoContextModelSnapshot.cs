@@ -20,9 +20,9 @@ namespace TodoApi.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("TodoApi.Models.TodoItem", b =>
+            modelBuilder.Entity("TodoApi.Models.Blog", b =>
                 {
-                    b.Property<long>("Iditem")
+                    b.Property<long>("IdItem")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ComentarioNota");
@@ -47,7 +47,7 @@ namespace TodoApi.Migrations
 
                     b.Property<string>("User");
 
-                    b.HasKey("Iditem");
+                    b.HasKey("IdItem");
 
                     b.ToTable("TodoItems");
                 });

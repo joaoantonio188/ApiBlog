@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TodoApi.Models;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 
 namespace TodoApi.DataAccessObject
@@ -16,33 +17,34 @@ namespace TodoApi.DataAccessObject
             _bancoDeDados = bancoDeDados;
         }
 
-        public void Inserir(TodoItem item)
+        public void Inserir(Blog blog)
         {
-            _bancoDeDados.TodoItems.Add(item);
+            _bancoDeDados.TodoItems.Add(blog);
             _bancoDeDados.SaveChanges();
         }
 
-        public void Atualizar(TodoItem item)
+        public void Atualizar(Blog blog)
         {
-            _bancoDeDados.TodoItems.Update(item);
+            _bancoDeDados.TodoItems.Update(blog);
             _bancoDeDados.SaveChanges();
         }
 
-        public void Deletar(int idItem)
+        public void Deletar(long idItem)
         {
             var computador = _bancoDeDados.TodoItems.Find(idItem);
             _bancoDeDados.TodoItems.Remove(computador);
             _bancoDeDados.SaveChanges();
         }
 
-        public TodoItem Obter(int idItem)
+        public Blog Obter(long idItem)
         {
             return _bancoDeDados.TodoItems.Find(idItem);
         }
 
-        public List<TodoItem> ObterTodos()
+        public List<Blog> ObterTodos()
         {
             return _bancoDeDados.TodoItems.ToList();
+            
         }
     }
 }
