@@ -9,7 +9,7 @@ namespace TodoApi.DataAccessObject
     public interface IBlogDao
     {
         void Inserir(Blog blog);
-        void Deletar(long idItem);
+        void Deletar(long idItem, String DonoBLog);
         void Atualizar(Blog blog);
         Blog Obter(long idItem);
         List<Blog> ObterTodos();

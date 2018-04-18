@@ -83,11 +83,11 @@ namespace TodoApi.Controllers
         }
 
         [HttpDelete("{idItem}")]
-        public IActionResult Delete(long idItem)
+        public IActionResult Delete(long idItem, [FromHeader] String DonoBlog )
         {
             try
             {
-                _blogBll.Deletar(idItem);
+                _blogBll.Deletar(idItem, DonoBlog);
                 return NoContent();
             }
             catch (Exception ex)

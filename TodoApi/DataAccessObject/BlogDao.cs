@@ -29,10 +29,10 @@ namespace TodoApi.DataAccessObject
             _bancoDeDados.SaveChanges();
         }
 
-        public void Deletar(long idItem)
+        public void Deletar(long idItem, String DonoBlog)
         {
-            var computador = _bancoDeDados.TodoItems.Find(idItem);
-            _bancoDeDados.TodoItems.Remove(computador);
+            var ItensBlog = _bancoDeDados.TodoItems.Find(idItem);
+            _bancoDeDados.TodoItems.Remove(ItensBlog);
             _bancoDeDados.SaveChanges();
         }
 

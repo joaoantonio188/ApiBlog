@@ -22,7 +22,7 @@ namespace TodoApi.Implementação
         /// Atualizar computador
         /// </summary>
         /// <param name="idItem">Identificador do computador</param>
-        /// <param name="item">Objeto computador</param>
+        /// <param name="blog">Objeto computador</param>
         public void Atualizar(long idItem, Blog blog)
         {
             var idItemAtual = _blogDAO.Obter(idItem);
@@ -34,24 +34,39 @@ namespace TodoApi.Implementação
         /// Excluir um computador
         /// </summary>
         /// <param name="idItem">Identificador do computador</param>
-        public void Deletar(long idItem)
+        public void Deletar(long idItem, String DonoBlog)
         {
-            _blogDAO.Deletar(idItem);
+
+            if (DonoBlog == "joao")
+            {
+                _blogDAO.Deletar(idItem, DonoBlog);
+            }
         }
 
         /// <summary>
         /// Inserir um novo computador
         /// </summary>
-        /// <param name="item">Obejto no computador</param>
+        /// <param name="blog">Obejto no computador</param>
         public void Inserir(Blog blog)
         {
+            var todosItensDoBlog = _blogDAO.ObterTodos();
+            todosItensDoBlog.ForEach(_blog =>
+            {
+                if (_blog.Email == blog.Email)
+                {
+                    throw new System.ArgumentException("Email existente");
+                }                  
+                
+            });
+
             _blogDAO.Inserir(blog);
+
         }
 
         /// <summary>
         /// Obter um computador
         /// </summary>
-        /// <param name="idItem">Identificador do computador</param>
+        /// <param name="blog">Identificador do computador</param>
         /// <returns>Retorna computador encontrado</returns>
         public Blog Obter(long idItem)
         {
